@@ -15,6 +15,8 @@ namespace GBFWikiMatchFinder
 {
     class Program
     {
+        //最後處理時間(加一小時換成日本時間)
+        private static DateTime _lastMatchTime = DateTime.Now.AddHours(1);
         [STAThread]
         static void Main(string[] args)
         {
@@ -50,9 +52,7 @@ namespace GBFWikiMatchFinder
 
         private static void FindMatch(object replaceDayString)
         {
-            //最後處理時間(加一小時換成日本時間)
-            DateTime lastMatchTime = DateTime.Now.AddHours(1);
-
+            
             string url =
                     "http://gbf-wiki.com/index.php?%C4%CC%BE%EF%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB%B5%DF%B1%E7%CA%E7%BD%B8%C8%C4";
 
@@ -90,12 +90,12 @@ namespace GBFWikiMatchFinder
                             {
                                 if (DateTime.TryParse(matchDtString, out matchDt))
                                 {
-                                    matchDt = matchDt.AddHours(-1);
-                                    if (matchDt.CompareTo(lastMatchTime) >= 0)
+                                    if (matchDt.CompareTo(_lastMatchTime) > 0)
                                     {
                                         WriteLog("發現丁丁，ID:" + matchId);
                                         Clipboard.SetText(matchId);
                                         PlaySound();
+                                        _lastMatchTime = matchDt;
                                     }
                                 }
                                 else
