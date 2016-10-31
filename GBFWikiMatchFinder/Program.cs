@@ -65,7 +65,7 @@ namespace GBFWikiMatchFinder
             }
 
             //最後一行li沒有換行
-            var listExpress = "<ul class=\"list1\".*>(?<list>(<li class=\"pcmt\">.*(\\n|\\r|\\r\\n)?.*)){20}</ul>";
+            var listExpress = "(?<list>(<li class=\"pcmt\">.*</li>))";
             Regex regex = new Regex(listExpress);
             //li用
             var liExpress = "<input.*>.*(?<matchid>([a-zA-Z0-9]){8}).*.*--.*<span class=\"comment_date\">(?<date>.*)<span";
