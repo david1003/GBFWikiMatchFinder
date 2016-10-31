@@ -1,0 +1,7 @@
+d:\my documents\visual studio 2015\Projects\GBFWikiMatchFinder\GBFWikiMatchFinder\bin\Debug\GBFWikiMatchFinder.exe.config
+d:\my documents\visual studio 2015\Projects\GBFWikiMatchFinder\GBFWikiMatchFinder\bin\Debug\GBFWikiMatchFinder.exe
+d:\my documents\visual studio 2015\Projects\GBFWikiMatchFinder\GBFWikiMatchFinder\bin\Debug\GBFWikiMatchFinder.pdb
+d:\my documents\visual studio 2015\Projects\GBFWikiMatchFinder\GBFWikiMatchFinder\obj\Debug\GBFWikiMatchFinder.exe
+d:\my documents\visual studio 2015\Projects\GBFWikiMatchFinder\GBFWikiMatchFinder\obj\Debug\GBFWikiMatchFinder.pdb
+d:\my documents\visual studio 2015\Projects\GBFWikiMatchFinder\GBFWikiMatchFinder\obj\Debug\GBFWikiMatchFinder.csprojResolveAssemblyReference.cache
+d:\my documents\visual studio 2015\Projects\GBFWikiMatchFinder\GBFWikiMatchFinder\bin\Debug\alert.wav
