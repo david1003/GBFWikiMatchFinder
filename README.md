@@ -8,4 +8,5 @@
 開發語言：C# (.Net4.5.2)
 請記得安裝[.NET Framework 4.5.2](https://www.microsoft.com/zh-TW/download/details.aspx?id=42642)
 
+發布版本請下載上面的Release.7z這個檔案即可。
 ---
