@@ -23,11 +23,6 @@ namespace GBFWikiMatchFinder
             //3s一次
             //int interval = 3000; 
             TimeSpan interval = TimeSpan.FromMilliseconds(3000);
-
-            //先取得日本的曜日
-            var dayOfWeek = ("日月火水木金土").Substring(int.Parse
-                (DateTime.Now.DayOfWeek.ToString("d")), 1);
-            var replaceDayString = string.Format("({0})", dayOfWeek);
             
             WriteLog("準備開始偵測...");
             //Timer timer = new Timer(FindMatch, replaceDayString, 2000, interval);
@@ -42,7 +37,7 @@ namespace GBFWikiMatchFinder
                 DateTime timeNow = DateTime.Now;
                 if (timeNow - timeLastCall > interval)
                 {
-                    FindMatch(replaceDayString);
+                    FindMatch();
                     timeLastCall = timeNow;
                 }
             }
@@ -50,7 +45,7 @@ namespace GBFWikiMatchFinder
             //Console.ReadLine();
         }
 
-        private static void FindMatch(object replaceDayString)
+        private static void FindMatch()
         {
             
             string url =
@@ -82,7 +77,9 @@ namespace GBFWikiMatchFinder
                         foreach (Match liMatch in liRegex.Matches(capture.Value))
                         {
                             //把曜日處理掉
-                            var matchDtString = liMatch.Groups["date"].Value.Replace(replaceDayString.ToString(), string.Empty);
+                            var matchDtString = liMatch.Groups["date"].Value;
+                            Regex regDay = new Regex(@"\(\w\)");
+                            matchDtString = regDay.Replace(matchDtString, string.Empty);
                             var matchId = liMatch.Groups["matchid"].Value;
 
                             DateTime matchDt = DateTime.MinValue;
