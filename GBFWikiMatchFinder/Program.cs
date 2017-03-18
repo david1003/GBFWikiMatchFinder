@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,6 +21,25 @@ namespace GBFWikiMatchFinder
         [STAThread]
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.Unicode;
+
+            string userInput = string.Empty;
+            EnemyName enemyName = EnemyName.Gabriel;
+
+            while (string.IsNullOrWhiteSpace(userInput))
+            {
+                Console.WriteLine("請輸入要捉取的天司代號：");
+                Console.WriteLine("1:ミカエル、2:ガブリエル、3:ウリエル、4:ラファエル");
+                userInput = Console.ReadLine();
+
+                if (false == Enum.TryParse(userInput, out enemyName))
+                {
+                    Console.WriteLine("輸入錯誤，請重新輸入");
+                    userInput = string.Empty;
+                }
+            }
+            
+            
             //3s一次
             //int interval = 3000; 
             TimeSpan interval = TimeSpan.FromMilliseconds(3000);
@@ -37,7 +57,7 @@ namespace GBFWikiMatchFinder
                 DateTime timeNow = DateTime.Now;
                 if (timeNow - timeLastCall > interval)
                 {
-                    FindMatch();
+                    FindMatch(enemyName);
                     timeLastCall = timeNow;
                 }
             }
@@ -45,7 +65,7 @@ namespace GBFWikiMatchFinder
             //Console.ReadLine();
         }
 
-        private static void FindMatch()
+        private static void FindMatch(EnemyName enemyName)
         {
             
             string url =
@@ -72,7 +92,7 @@ namespace GBFWikiMatchFinder
                 var listGroup = match.Groups["list"];
                 foreach (Capture capture in listGroup.Captures)
                 {
-                    if (capture.Value.Contains("グランデ") || capture.Value.Contains("黒麒麟"))
+                    if (capture.Value.Contains(enemyName.GetDescription()))
                     {
                         foreach (Match liMatch in liRegex.Matches(capture.Value))
                         {
@@ -89,7 +109,7 @@ namespace GBFWikiMatchFinder
                                 {
                                     if (matchDt.CompareTo(_lastMatchTime) > 0)
                                     {
-                                        WriteLog("發現丁丁，ID:" + matchId);
+                                        WriteLog($"發現{enemyName.GetDescription()}，ID:{matchId}");
                                         Clipboard.SetText(matchId);
                                         PlaySound();
                                         _lastMatchTime = matchDt;
