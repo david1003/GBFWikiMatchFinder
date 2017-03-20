@@ -5,3 +5,10 @@ D:\My Documents\GitHub\GBFWikiMatchFinder\GBFWikiMatchFinder\bin\Release\GBFWiki
 D:\My Documents\GitHub\GBFWikiMatchFinder\GBFWikiMatchFinder\obj\Release\GBFWikiMatchFinder.csprojResolveAssemblyReference.cache
 D:\My Documents\GitHub\GBFWikiMatchFinder\GBFWikiMatchFinder\obj\Release\GBFWikiMatchFinder.exe
 D:\My Documents\GitHub\GBFWikiMatchFinder\GBFWikiMatchFinder\obj\Release\GBFWikiMatchFinder.pdb
+D:\MyApp\GBFWikiMatchFinder-master\GBFWikiMatchFinder\bin\Release\GBFWikiMatchFinder.exe.config
+D:\MyApp\GBFWikiMatchFinder-master\GBFWikiMatchFinder\obj\Release\GBFWikiMatchFinder.exe
+D:\MyApp\GBFWikiMatchFinder-master\GBFWikiMatchFinder\obj\Release\GBFWikiMatchFinder.pdb
+D:\MyApp\GBFWikiMatchFinder-master\GBFWikiMatchFinder\bin\Release\alert.wav
+D:\MyApp\GBFWikiMatchFinder-master\GBFWikiMatchFinder\bin\Release\GBFWikiMatchFinder.exe
+D:\MyApp\GBFWikiMatchFinder-master\GBFWikiMatchFinder\bin\Release\GBFWikiMatchFinder.pdb
+D:\MyApp\GBFWikiMatchFinder-master\GBFWikiMatchFinder\obj\Release\GBFWikiMatchFinder.csprojResolveAssemblyReference.cache
