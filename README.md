@@ -5,6 +5,8 @@
 
 20170321新增使用介面版本
 
+20170322新增丁丁、小巴、黃龍、黒麒麟 偵測
+
 靈感來源從[吉米大的舔丁小黑窗](https://github.com/TimWei/ZooeyPeroPero)來的，改寫成C#版本。
 
 資料來源由[通常マルチバトル救援募集板](http://gbf-wiki.com/index.php?%BB%CD%C2%E7%C5%B7%BB%CA%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB_%B5%DF%B1%E7%CA%E7%BD%B8%C8%C4)
