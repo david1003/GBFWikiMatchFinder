@@ -38,7 +38,8 @@
             this.CLB_List = new System.Windows.Forms.CheckedListBox();
             this.BTN_GO = new System.Windows.Forms.Button();
             this.BTN_STOP = new System.Windows.Forms.Button();
-            this.lb_status = new System.Windows.Forms.Label();
+            this.TB_MB = new System.Windows.Forms.TextBox();
+            this.CLB_List_2 = new System.Windows.Forms.CheckedListBox();
             this.GBF_contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +53,6 @@
             this.GBF_notifyIcon.Text = "GBF Tool";
             this.GBF_notifyIcon.Visible = true;
             this.GBF_notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Gbf_notifyIcon_MouseDoubleClick);
-            this.GBF_notifyIcon.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Gbf_notifyIcon_MouseMove);
             // 
             // GBF_contextMenuStrip
             // 
@@ -99,7 +99,7 @@
             // 
             // BTN_GO
             // 
-            this.BTN_GO.Location = new System.Drawing.Point(170, 78);
+            this.BTN_GO.Location = new System.Drawing.Point(270, 47);
             this.BTN_GO.Name = "BTN_GO";
             this.BTN_GO.Size = new System.Drawing.Size(75, 23);
             this.BTN_GO.TabIndex = 2;
@@ -109,7 +109,7 @@
             // 
             // BTN_STOP
             // 
-            this.BTN_STOP.Location = new System.Drawing.Point(170, 108);
+            this.BTN_STOP.Location = new System.Drawing.Point(270, 77);
             this.BTN_STOP.Name = "BTN_STOP";
             this.BTN_STOP.Size = new System.Drawing.Size(75, 23);
             this.BTN_STOP.TabIndex = 3;
@@ -117,21 +117,34 @@
             this.BTN_STOP.UseVisualStyleBackColor = true;
             this.BTN_STOP.Click += new System.EventHandler(this.BTN_STOP_Click);
             // 
-            // lb_status
+            // TB_MB
             // 
-            this.lb_status.AutoSize = true;
-            this.lb_status.Location = new System.Drawing.Point(170, 13);
-            this.lb_status.Name = "lb_status";
-            this.lb_status.Size = new System.Drawing.Size(41, 12);
-            this.lb_status.TabIndex = 4;
-            this.lb_status.Text = "停止中";
+            this.TB_MB.Location = new System.Drawing.Point(13, 107);
+            this.TB_MB.Multiline = true;
+            this.TB_MB.Name = "TB_MB";
+            this.TB_MB.Size = new System.Drawing.Size(332, 103);
+            this.TB_MB.TabIndex = 5;
+            // 
+            // CLB_List_2
+            // 
+            this.CLB_List_2.FormattingEnabled = true;
+            this.CLB_List_2.Items.AddRange(new object[] {
+            "プロバハ",
+            "グランデ",
+            "黄龍",
+            "黒麒麟"});
+            this.CLB_List_2.Location = new System.Drawing.Point(138, 12);
+            this.CLB_List_2.Name = "CLB_List_2";
+            this.CLB_List_2.Size = new System.Drawing.Size(120, 89);
+            this.CLB_List_2.TabIndex = 6;
             // 
             // Form_GBF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.lb_status);
+            this.ClientSize = new System.Drawing.Size(357, 217);
+            this.Controls.Add(this.CLB_List_2);
+            this.Controls.Add(this.TB_MB);
             this.Controls.Add(this.BTN_STOP);
             this.Controls.Add(this.BTN_GO);
             this.Controls.Add(this.CLB_List);
@@ -155,7 +168,8 @@
         private System.Windows.Forms.CheckedListBox CLB_List;
         private System.Windows.Forms.Button BTN_GO;
         private System.Windows.Forms.Button BTN_STOP;
-        private System.Windows.Forms.Label lb_status;
+        private System.Windows.Forms.TextBox TB_MB;
+        private System.Windows.Forms.CheckedListBox CLB_List_2;
     }
 }
 

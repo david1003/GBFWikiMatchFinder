@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Media;
 using System.Net;
+using System.IO;
 
 namespace GBFWikeMatchFinderWinApp
 {
@@ -14,14 +15,12 @@ namespace GBFWikeMatchFinderWinApp
     {
         //最後處理時間(加一小時換成日本時間)
         private static DateTime _lastMatchTime = DateTime.Now.AddHours(1);
+
         public Form_GBF()
         {
             InitializeComponent();
-        }
 
-        private void Gbf_notifyIcon_MouseMove(object sender, MouseEventArgs e)
-        {
-            //GBF_notifyIcon.ShowBalloonTip(3000);
+            ConsoleTextBoxWriter CTBW = new ConsoleTextBoxWriter(TB_MB);
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -46,7 +45,7 @@ namespace GBFWikeMatchFinderWinApp
         private void GOFind()
         {
             //開始時間
-            Clipboard.SetText(DateTime.Now.ToString() + "GOFind");
+            //Clipboard.SetText(DateTime.Now.ToString() + " GOFind");
 
             Console.OutputEncoding = Encoding.Unicode;
             string userInput = string.Empty;
@@ -56,21 +55,46 @@ namespace GBFWikeMatchFinderWinApp
             {
                 FindList.Add(item.ToString());
             }
+            List<string> FindList_2 = new List<string>();
+            foreach (var item in CLB_List_2.CheckedItems)
+            {
+                FindList_2.Add(item.ToString());
+            }
 
 
             while (true)
             {
                 DateTime timeNow = DateTime.Now;
-                Thread.Sleep(3000);
-                FindMatch(FindList);
+                Thread.Sleep(3500);
+                try
+                {
+                    if(FindList.Count != 0)
+                    {
+                        //四大天司マルチバトル救援募集板
+                        string url_1 =
+                                "http://gbf-wiki.com/index.php?%BB%CD%C2%E7%C5%B7%BB%CA%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB_%B5%DF%B1%E7%CA%E7%BD%B8%C8%C4";
+                        FindMatch(FindList, url_1);
+                    }
+                    if (FindList_2.Count != 0)
+                    {
+                        //通常マルチバトル救援募集板
+                        string url_2 =
+                            "http://gbf-wiki.com/index.php?%C4%CC%BE%EF%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB_%B5%DF%B1%E7%CA%E7%BD%B8%C8%C4";
+                        FindMatch(FindList_2, url_2);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    ErrLog("FindMatch錯誤。 " + ex.ToString());
+                    throw;
+                }
             }
         }
 
-        private void FindMatch(List<string> FindList)
+        private void FindMatch(List<string> FindList, string url)
         {
-
-            string url =
-                    "http://gbf-wiki.com/index.php?%BB%CD%C2%E7%C5%B7%BB%CA%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB_%B5%DF%B1%E7%CA%E7%BD%B8%C8%C4";
+            
 
             WriteLog("偵測中");
             string content;
@@ -113,9 +137,7 @@ namespace GBFWikeMatchFinderWinApp
                                         if (matchDt.CompareTo(_lastMatchTime) > 0)
                                         {
                                             WriteLog($"發現{Finditem}，ID:{matchId}");
-                                            GBF_notifyIcon.BalloonTipTitle = $"發現{Finditem}";
-                                            GBF_notifyIcon.BalloonTipText = $"ID:{matchId}";
-                                            GBF_notifyIcon.ShowBalloonTip(10000);
+                                            GBF_notifyIcon.ShowBalloonTip(15000, $"發現{Finditem}", $"ID:{matchId}",ToolTipIcon.Info);
                                             Clipboard.SetText(matchId);
                                             PlaySound();
                                             _lastMatchTime = matchDt;
@@ -134,12 +156,25 @@ namespace GBFWikeMatchFinderWinApp
             }
         }
 
+
         private void WriteLog(string message)
         {
             var now = DateTime.Now;
             Console.WriteLine("{0}:{1}:{2}\t{3}", now.ToString("HH"), now.ToString("mm"), now.ToString("ss"), message);
         }
-
+        private static void ErrLog(string message)
+        {
+            var now = DateTime.Now;
+            FileStream fs = new FileStream(Environment.CurrentDirectory + "\\ErrLog.txt", FileMode.Append);
+            StreamWriter sw = new StreamWriter(fs);
+            //開始寫入
+            sw.Write("{0}:{1}:{2}\t{3}", now.ToString("HH"), now.ToString("mm"), now.ToString("ss"), message);
+            //清空緩衝區
+            sw.Flush();
+            //關閉流
+            sw.Close();
+            fs.Close();
+        }
         private void PlaySound()
         {
             SoundPlayer typewriter = new SoundPlayer();
@@ -161,7 +196,7 @@ namespace GBFWikeMatchFinderWinApp
                 _thread.SetApartmentState(ApartmentState.STA);
                 _thread.IsBackground = true;
                 _thread.Start();
-                Console.WriteLine("Thread started running");
+                WriteLog("開始尋找 ");
             }
         }
         public void Pause()
@@ -170,7 +205,7 @@ namespace GBFWikeMatchFinderWinApp
              * causing threads to block.
              */
             _pauseEvent.Reset();
-            Console.WriteLine("Thread paused");
+            WriteLog("暫停尋找 ");
         }
 
         public void Resume()
@@ -179,7 +214,7 @@ namespace GBFWikeMatchFinderWinApp
              * allowing one or more waiting threads to proceed.
              */
             _pauseEvent.Set();
-            Console.WriteLine("Thread resuming ");
+            WriteLog("繼續尋找 ");
         }
         public void Stop()
         {
@@ -188,7 +223,6 @@ namespace GBFWikeMatchFinderWinApp
 
                 // Signal the shutdown event
                 _shutdownEvent.Set();
-                Console.WriteLine("Thread Stopped ");
 
                 // Make sure to resume any paused threads
                 _pauseEvent.Set();
@@ -196,6 +230,7 @@ namespace GBFWikeMatchFinderWinApp
                 // Wait for the thread to exit
                 _thread.Abort();
                 _thread.Join();
+                WriteLog("停止尋找 ");
             }
         }
 
@@ -205,30 +240,25 @@ namespace GBFWikeMatchFinderWinApp
         #region 按鈕事件
         private void BTN_GO_Click(object sender, EventArgs e)
         {
-            lb_status.Text = "尋找中";
             Start();
         }
         private void BTN_STOP_Click(object sender, EventArgs e)
         {
-            lb_status.Text = "停止中";
             Stop();
         }
 
         private void 開始ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lb_status.Text = "尋找中";
             Start();
         }
 
         private void 停止ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lb_status.Text = "停止中";
             Stop();
         }
 
         private void 離開ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lb_status.Text = "停止中";
             Stop();
             this.Close();
         }

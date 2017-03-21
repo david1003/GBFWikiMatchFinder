@@ -19,3 +19,9 @@ D:\MyApp\GBFWikiMatchFinder-master\GBFWikiMatchFinder\bin\Debug\alert.wav
 D:\MyApp\GBFWikiMatchFinder-master\GBFWikiMatchFinder\bin\Debug\GBFWikiMatchFinder.exe
 D:\MyApp\GBFWikiMatchFinder-master\GBFWikiMatchFinder\bin\Debug\GBFWikiMatchFinder.pdb
 D:\MyApp\GBFWikiMatchFinder-master\GBFWikiMatchFinder\obj\Debug\GBFWikiMatchFinder.csprojResolveAssemblyReference.cache
+D:\Git\GBFWikiMatchFinder\bin\Debug\alert.wav
+D:\Git\GBFWikiMatchFinder\bin\Debug\GBFWikiMatchFinder.exe.config
+D:\Git\GBFWikiMatchFinder\bin\Debug\GBFWikiMatchFinder.exe
+D:\Git\GBFWikiMatchFinder\bin\Debug\GBFWikiMatchFinder.pdb
+D:\Git\GBFWikiMatchFinder\obj\Debug\GBFWikiMatchFinder.exe
+D:\Git\GBFWikiMatchFinder\obj\Debug\GBFWikiMatchFinder.pdb
