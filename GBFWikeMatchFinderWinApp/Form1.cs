@@ -66,7 +66,7 @@ namespace GBFWikeMatchFinderWinApp
             }
         }
 
-        private void FindMatch(List<string> FindList)
+        private void FindMatch(List<string> findList)
         {
 
             string url =
@@ -93,9 +93,9 @@ namespace GBFWikeMatchFinderWinApp
                 var listGroup = match.Groups["list"];
                 foreach (Capture capture in listGroup.Captures)
                 {
-                    foreach (var Finditem in FindList)
+                    foreach (var item in findList)
                     {
-                        if (capture.Value.Contains(Finditem))
+                        if (capture.Value.Contains(item))
                         {
                             foreach (Match liMatch in liRegex.Matches(capture.Value))
                             {
@@ -112,8 +112,8 @@ namespace GBFWikeMatchFinderWinApp
                                     {
                                         if (matchDt.CompareTo(_lastMatchTime) > 0)
                                         {
-                                            WriteLog($"發現{Finditem}，ID:{matchId}");
-                                            GBF_notifyIcon.BalloonTipTitle = $"發現{Finditem}";
+                                            WriteLog($"發現{item}，ID:{matchId}");
+                                            GBF_notifyIcon.BalloonTipTitle = $"發現{item}";
                                             GBF_notifyIcon.BalloonTipText = $"ID:{matchId}";
                                             GBF_notifyIcon.ShowBalloonTip(10000);
                                             Clipboard.SetText(matchId);
