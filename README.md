@@ -2,6 +2,7 @@
 從gbf wiki共鬥頁，取得丁丁&黒麒麟討伐戰ID
 
 20170318修改為取得四大天司多人戰
+
 20170321新增使用介面版本
 
 靈感來源從[吉米大的舔丁小黑窗](https://github.com/TimWei/ZooeyPeroPero)來的，改寫成C#版本。
