@@ -8,6 +8,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Threading.Timer;
@@ -59,6 +60,7 @@ namespace GBFWikiMatchFinder
                 {
                     FindMatch(enemyName);
                     timeLastCall = timeNow;
+                    Thread.Sleep(500);
                 }
             }
             ////Console.WriteLine(content);
