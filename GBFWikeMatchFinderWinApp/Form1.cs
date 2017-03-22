@@ -21,6 +21,12 @@ namespace GBFWikeMatchFinderWinApp
             InitializeComponent();
 
             ConsoleTextBoxWriter CTBW = new ConsoleTextBoxWriter(TB_MB);
+
+            var ds = GetFindListDs();
+            CLB_List.DataSource = new BindingSource(ds, null);
+            CLB_List.DisplayMember = "Key";
+            CLB_List.ValueMember = "Value";
+
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -42,25 +48,54 @@ namespace GBFWikeMatchFinderWinApp
             this.WindowState = FormWindowState.Normal;
         }
 
+        private Dictionary<string, string> GetFindListDs()
+        {
+            string fourUrl =
+                "http://gbf-wiki.com/index.php?%BB%CD%C2%E7%C5%B7%BB%CA%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB_%B5%DF%B1%E7%CA%E7%BD%B8%C8%C4";
+            string otherUrl =
+                "http://gbf-wiki.com/index.php?%C4%CC%BE%EF%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB_%B5%DF%B1%E7%CA%E7%BD%B8%C8%C4";
+
+            var dict = new Dictionary<string, string>();
+            dict.Add("ミカエル", fourUrl);
+            dict.Add("ガブリエル", fourUrl);
+            dict.Add("ウリエル", fourUrl);
+            dict.Add("ラファエル", fourUrl);
+
+            dict.Add("プロバハ", otherUrl);
+            dict.Add("グランデ", otherUrl);
+            dict.Add("黄龍", otherUrl);
+            dict.Add("黒麒麟", otherUrl);
+
+            return dict;
+        }
         private void GOFind()
         {
             //開始時間
             //Clipboard.SetText(DateTime.Now.ToString() + " GOFind");
 
             Console.OutputEncoding = Encoding.Unicode;
-            string userInput = string.Empty;
+            Dictionary<string, List<string>> groupByNameResult = new Dictionary<string, List<string>>();
 
-            List<string> FindList = new List<string>();
-            foreach (var item in CLB_List.CheckedItems)
+            foreach (KeyValuePair<string, string> kvp in CLB_List.CheckedItems)
             {
-                FindList.Add(item.ToString());
-            }
-            List<string> FindList_2 = new List<string>();
-            foreach (var item in CLB_List_2.CheckedItems)
-            {
-                FindList_2.Add(item.ToString());
+                if (groupByNameResult.ContainsKey(kvp.Value))
+                {
+                    groupByNameResult[kvp.Value].Add(kvp.Key);
+                }
+                else
+                {
+                    groupByNameResult.Add(kvp.Value, new List<string>()
+                    {
+                        kvp.Key
+                    });
+                }
             }
 
+            if (groupByNameResult.Count == 0)
+            {
+                MessageBox.Show("請選擇要捉取的多人戰");
+                return;
+            }
 
             while (true)
             {
@@ -68,20 +103,7 @@ namespace GBFWikeMatchFinderWinApp
                 Thread.Sleep(3500);
                 try
                 {
-                    if(FindList.Count != 0)
-                    {
-                        //四大天司マルチバトル救援募集板
-                        string url_1 =
-                                "http://gbf-wiki.com/index.php?%BB%CD%C2%E7%C5%B7%BB%CA%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB_%B5%DF%B1%E7%CA%E7%BD%B8%C8%C4";
-                        FindMatch(FindList, url_1);
-                    }
-                    if (FindList_2.Count != 0)
-                    {
-                        //通常マルチバトル救援募集板
-                        string url_2 =
-                            "http://gbf-wiki.com/index.php?%C4%CC%BE%EF%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB_%B5%DF%B1%E7%CA%E7%BD%B8%C8%C4";
-                        FindMatch(FindList_2, url_2);
-                    }
+                    FindMatch(groupByNameResult);
 
                 }
                 catch (Exception ex)
@@ -92,65 +114,68 @@ namespace GBFWikeMatchFinderWinApp
             }
         }
 
-        private void FindMatch(List<string> findList, string url)
+        private void FindMatch(Dictionary<string, List<string>> dicNameList)
         {
             
-
             WriteLog("偵測中");
-            string content;
-            using (var client = new WebClient())
-            {
-                client.Encoding = Encoding.GetEncoding("EUC-JP");
-                content = client.DownloadString(url);
-            }
 
-            //最後一行li沒有換行
-            var listExpress = "(?<list>(<li class=\"pcmt\">.*</li>))";
-            Regex regex = new Regex(listExpress);
-            //li用
-            var liExpress = "<input.*>.*(?<matchid>([a-zA-Z0-9]){8}).*.*--.*<span class=\"comment_date\">(?<date>.*)<span";
-            var liRegex = new Regex(liExpress);
-
-            var matches = regex.Matches(content);
-            foreach (Match match in matches)
+            foreach (var kvp in dicNameList)
             {
-                var listGroup = match.Groups["list"];
-                foreach (Capture capture in listGroup.Captures)
+                string content;
+                using (var client = new WebClient())
                 {
-                    foreach (var item in findList)
-                    {
-                        if (capture.Value.Contains(item))
-                        {
-                            foreach (Match liMatch in liRegex.Matches(capture.Value))
-                            {
-                                //把曜日處理掉
-                                var matchDtString = liMatch.Groups["date"].Value;
-                                Regex regDay = new Regex(@"\(\w\)");
-                                matchDtString = regDay.Replace(matchDtString, string.Empty);
-                                var matchId = liMatch.Groups["matchid"].Value;
+                    client.Encoding = Encoding.GetEncoding("EUC-JP");
+                    content = client.DownloadString(kvp.Key);
+                }
 
-                                DateTime matchDt = DateTime.MinValue;
-                                if (!string.IsNullOrWhiteSpace(matchId))
+                //最後一行li沒有換行
+                var listExpress = "(?<list>(<li class=\"pcmt\">.*</li>))";
+                Regex regex = new Regex(listExpress);
+                //li用
+                var liExpress = "<input.*>.*(?<matchid>([a-zA-Z0-9]){8}).*.*--.*<span class=\"comment_date\">(?<date>.*)<span";
+                var liRegex = new Regex(liExpress);
+
+                var matches = regex.Matches(content);
+                foreach (Match match in matches)
+                {
+                    var listGroup = match.Groups["list"];
+                    foreach (Capture capture in listGroup.Captures)
+                    {
+                        foreach (var item in kvp.Value)
+                        {
+                            if (capture.Value.Contains(item))
+                            {
+                                foreach (Match liMatch in liRegex.Matches(capture.Value))
                                 {
-                                    if (DateTime.TryParse(matchDtString, out matchDt))
+                                    //把曜日處理掉
+                                    var matchDtString = liMatch.Groups["date"].Value;
+                                    Regex regDay = new Regex(@"\(\w\)");
+                                    matchDtString = regDay.Replace(matchDtString, string.Empty);
+                                    var matchId = liMatch.Groups["matchid"].Value;
+
+                                    DateTime matchDt = DateTime.MinValue;
+                                    if (!string.IsNullOrWhiteSpace(matchId))
                                     {
-                                        if (matchDt.CompareTo(_lastMatchTime) > 0)
+                                        if (DateTime.TryParse(matchDtString, out matchDt))
                                         {
-                                            WriteLog($"發現{item}，ID:{matchId}");
-                                            GBF_notifyIcon.ShowBalloonTip(15000, $"發現{item}", $"ID:{matchId}", ToolTipIcon.Info);
-                                            Clipboard.SetText(matchId);
-                                            PlaySound();
-                                            _lastMatchTime = matchDt;
+                                            if (matchDt.CompareTo(_lastMatchTime) > 0)
+                                            {
+                                                WriteLog($"發現{item}，ID:{matchId}");
+                                                GBF_notifyIcon.ShowBalloonTip(15000, $"發現{item}", $"ID:{matchId}", ToolTipIcon.Info);
+                                                Clipboard.SetText(matchId);
+                                                PlaySound();
+                                                _lastMatchTime = matchDt;
+                                            }
                                         }
-                                    }
-                                    else
-                                    {
-                                        WriteLog("日期轉換錯誤。 " + matchDtString);
+                                        else
+                                        {
+                                            WriteLog("日期轉換錯誤。 " + matchDtString);
+                                        }
                                     }
                                 }
                             }
-                        }
 
+                        }
                     }
                 }
             }

@@ -39,7 +39,6 @@
             this.BTN_GO = new System.Windows.Forms.Button();
             this.BTN_STOP = new System.Windows.Forms.Button();
             this.TB_MB = new System.Windows.Forms.TextBox();
-            this.CLB_List_2 = new System.Windows.Forms.CheckedListBox();
             this.GBF_contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,19 +86,14 @@
             // CLB_List
             // 
             this.CLB_List.FormattingEnabled = true;
-            this.CLB_List.Items.AddRange(new object[] {
-            "ミカエル",
-            "ガブリエル",
-            "ウリエル",
-            "ラファエル"});
             this.CLB_List.Location = new System.Drawing.Point(12, 12);
             this.CLB_List.Name = "CLB_List";
-            this.CLB_List.Size = new System.Drawing.Size(120, 89);
+            this.CLB_List.Size = new System.Drawing.Size(120, 191);
             this.CLB_List.TabIndex = 1;
             // 
             // BTN_GO
             // 
-            this.BTN_GO.Location = new System.Drawing.Point(270, 47);
+            this.BTN_GO.Location = new System.Drawing.Point(138, 12);
             this.BTN_GO.Name = "BTN_GO";
             this.BTN_GO.Size = new System.Drawing.Size(75, 23);
             this.BTN_GO.TabIndex = 2;
@@ -109,7 +103,7 @@
             // 
             // BTN_STOP
             // 
-            this.BTN_STOP.Location = new System.Drawing.Point(270, 77);
+            this.BTN_STOP.Location = new System.Drawing.Point(219, 12);
             this.BTN_STOP.Name = "BTN_STOP";
             this.BTN_STOP.Size = new System.Drawing.Size(75, 23);
             this.BTN_STOP.TabIndex = 3;
@@ -119,31 +113,17 @@
             // 
             // TB_MB
             // 
-            this.TB_MB.Location = new System.Drawing.Point(13, 107);
+            this.TB_MB.Location = new System.Drawing.Point(138, 41);
             this.TB_MB.Multiline = true;
             this.TB_MB.Name = "TB_MB";
-            this.TB_MB.Size = new System.Drawing.Size(332, 103);
+            this.TB_MB.Size = new System.Drawing.Size(207, 162);
             this.TB_MB.TabIndex = 5;
-            // 
-            // CLB_List_2
-            // 
-            this.CLB_List_2.FormattingEnabled = true;
-            this.CLB_List_2.Items.AddRange(new object[] {
-            "プロバハ",
-            "グランデ",
-            "黄龍",
-            "黒麒麟"});
-            this.CLB_List_2.Location = new System.Drawing.Point(138, 12);
-            this.CLB_List_2.Name = "CLB_List_2";
-            this.CLB_List_2.Size = new System.Drawing.Size(120, 89);
-            this.CLB_List_2.TabIndex = 6;
             // 
             // Form_GBF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(357, 217);
-            this.Controls.Add(this.CLB_List_2);
             this.Controls.Add(this.TB_MB);
             this.Controls.Add(this.BTN_STOP);
             this.Controls.Add(this.BTN_GO);
@@ -169,7 +149,6 @@
         private System.Windows.Forms.Button BTN_GO;
         private System.Windows.Forms.Button BTN_STOP;
         private System.Windows.Forms.TextBox TB_MB;
-        private System.Windows.Forms.CheckedListBox CLB_List_2;
     }
 }
 
