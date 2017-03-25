@@ -8,6 +8,10 @@ using System.Text.RegularExpressions;
 using System.Media;
 using System.Net;
 using System.IO;
+using Tweetinvi;
+using Tweetinvi.Models;
+using Tweetinvi.Streaming;
+using Stream = System.IO.Stream;
 
 namespace GBFWikeMatchFinderWinApp
 {
@@ -15,17 +19,24 @@ namespace GBFWikeMatchFinderWinApp
     {
         //最後處理時間(加一小時換成日本時間)
         private static DateTime _lastMatchTime = DateTime.Now.AddHours(1);
+        private IFilteredStream _twitterStream;
 
+        
         public Form_GBF()
         {
             InitializeComponent();
 
             ConsoleTextBoxWriter CTBW = new ConsoleTextBoxWriter(TB_MB);
 
-            var ds = GetFindListDs();
-            CLB_List.DataSource = new BindingSource(ds, null);
-            CLB_List.DisplayMember = "Key";
-            CLB_List.ValueMember = "Value";
+            //var ds = GetWikiFindListDs();
+            //clb_Wiki.DataSource = new BindingSource(ds, null);
+            //clb_Wiki.DisplayMember = "Key";
+            //clb_Wiki.ValueMember = "Value";
+
+            var dsTwitter = GetTwitterFindListDs();
+            clb_Twitter.DataSource = new BindingSource(dsTwitter, null);
+            clb_Twitter.DisplayMember = "Key";
+            clb_Twitter.ValueMember = "Value";
 
         }
 
@@ -48,7 +59,68 @@ namespace GBFWikeMatchFinderWinApp
             this.WindowState = FormWindowState.Normal;
         }
 
-        private Dictionary<string, string> GetFindListDs()
+        private void ExecuteFinder()
+        {
+            //開始時間
+            //Clipboard.SetText(DateTime.Now.ToString() + " ExecuteFinder");
+            Console.OutputEncoding = Encoding.Unicode;
+
+
+            if (clb_Wiki.CheckedItems.Count + clb_Twitter.CheckedItems.Count == 0)
+            {
+                MessageBox.Show("請選擇要捉取的多人戰");
+                return;
+            }
+
+            if (clb_Twitter.CheckedItems.Count > 0)
+            {
+                List<string> selectedValues = new List<string>();
+                foreach (KeyValuePair<string, string> kvp in clb_Twitter.CheckedItems)
+                {
+                    selectedValues.Add(kvp.Value);
+                }
+
+                ExecuteTwitterFinder(selectedValues);
+            }
+
+            if (clb_Wiki.CheckedItems.Count > 0)
+            {
+                Dictionary<string, List<string>> groupByNameResult = new Dictionary<string, List<string>>();
+
+                foreach (KeyValuePair<string, string> kvp in clb_Wiki.CheckedItems)
+                {
+                    if (groupByNameResult.ContainsKey(kvp.Value))
+                    {
+                        groupByNameResult[kvp.Value].Add(kvp.Key);
+                    }
+                    else
+                    {
+                        groupByNameResult.Add(kvp.Value, new List<string>()
+                        {
+                            kvp.Key
+                        });
+                    }
+                }
+
+                while (true)
+                {
+                    Thread.Sleep(3500);
+                    try
+                    {
+                        WikiFindMatch(groupByNameResult);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrLog("FindMatch錯誤。 " + ex.ToString());
+                        throw;
+                    }
+                }
+            }
+        }
+        #region Wiki
+
+        private Dictionary<string, string> GetWikiFindListDs()
         {
             string fourUrl =
                 "http://gbf-wiki.com/index.php?%BB%CD%C2%E7%C5%B7%BB%CA%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB_%B5%DF%B1%E7%CA%E7%BD%B8%C8%C4";
@@ -68,53 +140,8 @@ namespace GBFWikeMatchFinderWinApp
 
             return dict;
         }
-        private void GOFind()
-        {
-            //開始時間
-            //Clipboard.SetText(DateTime.Now.ToString() + " GOFind");
 
-            Console.OutputEncoding = Encoding.Unicode;
-            Dictionary<string, List<string>> groupByNameResult = new Dictionary<string, List<string>>();
-
-            foreach (KeyValuePair<string, string> kvp in CLB_List.CheckedItems)
-            {
-                if (groupByNameResult.ContainsKey(kvp.Value))
-                {
-                    groupByNameResult[kvp.Value].Add(kvp.Key);
-                }
-                else
-                {
-                    groupByNameResult.Add(kvp.Value, new List<string>()
-                    {
-                        kvp.Key
-                    });
-                }
-            }
-
-            if (groupByNameResult.Count == 0)
-            {
-                MessageBox.Show("請選擇要捉取的多人戰");
-                return;
-            }
-
-            while (true)
-            {
-                DateTime timeNow = DateTime.Now;
-                Thread.Sleep(3500);
-                try
-                {
-                    FindMatch(groupByNameResult);
-
-                }
-                catch (Exception ex)
-                {
-                    ErrLog("FindMatch錯誤。 " + ex.ToString());
-                    throw;
-                }
-            }
-        }
-
-        private void FindMatch(Dictionary<string, List<string>> dicNameList)
+        private void WikiFindMatch(Dictionary<string, List<string>> dicNameList)
         {
             
             WriteLog("偵測中");
@@ -160,11 +187,7 @@ namespace GBFWikeMatchFinderWinApp
                                         {
                                             if (matchDt.CompareTo(_lastMatchTime) > 0)
                                             {
-                                                WriteLog($"發現{item}，ID:{matchId}");
-                                                GBF_notifyIcon.ShowBalloonTip(15000, $"發現{item}", $"ID:{matchId}", ToolTipIcon.Info);
-                                                Clipboard.SetText(matchId);
-                                                PlaySound();
-                                                _lastMatchTime = matchDt;
+                                                InvokeFoundNotify(match.Groups["matchid"].ToString(), match.Groups["name"].ToString());
                                             }
                                         }
                                         else
@@ -181,6 +204,79 @@ namespace GBFWikeMatchFinderWinApp
             }
         }
 
+        #endregion
+
+        #region Twitter
+
+        private Dictionary<string, string> GetTwitterFindListDs()
+        {
+            var dict = new Dictionary<string, string>();
+            dict.Add("ミカエル", @"Lv100\s*ミカエル");
+            dict.Add("ガブリエル", @"Lv100\s*ガブリエル");
+            dict.Add("ウリエル", @"Lv100\s*ウリエル");
+            dict.Add("ラファエル", @"Lv100\s*ラファエル");
+
+            dict.Add("プロバハ", @"Lv100\s*プロトバハムート");
+            dict.Add("グランデ", @"Lv100\s*ジ・オーダー・グランデ");
+            dict.Add("黄龍", @"Lv100\s*黄龍");
+            dict.Add("黒麒麟", @"Lv100\s*黒麒麟");
+
+            return dict;
+        }
+
+        private void ExecuteTwitterFinder(List<string> selectedValues)
+        {
+            Auth.SetUserCredentials("K06bhz6lAMtpkZ7SaIYXSbJZD", "hsesgtAUeGsVJaWZ1VIqQYGaEYttAgZgqgstUWiIzOFUyedmsh", "2252101940-U4JtUqEOYYQa38cm0pG2blGf8uey1asNC2hppZO", "MQVHUgIbibEfJXGtlG0fBLNmI44WUQoQCIw43a9G8TToR");
+
+            TweetinviEvents.QueryBeforeExecute += (sender, args) =>
+            {
+                //Console.WriteLine(args.QueryURL);
+            };
+
+            _twitterStream = Tweetinvi.Stream.CreateFilteredStream();
+
+            //stream.AddTrack("参加者募集！参戦ID");
+            _twitterStream.AddTrack("Lv100");
+            _twitterStream.AddTweetLanguageFilter(LanguageFilter.Japanese);
+            //stream.AddTweetLanguageFilter(LanguageFilter.Chinese);
+
+            //組合name的pattern
+            string namePatternString = $"(?<name>{string.Join("|", selectedValues)})";
+            //Regex namePattern = new Regex(namePatternString);
+            //Regex idPattern = new Regex(@"参戦ID：(?<matchid>([a-zA-Z0-9]){8})");
+
+            Regex pattern = new Regex(@"参戦ID：(?<matchid>([a-zA-Z0-9]){8})\s*" + namePatternString);
+
+            _twitterStream.MatchingTweetReceived += (sender, args) =>
+            {
+                var tweet = args.Tweet;
+                var match = pattern.Match(tweet.FullText);
+                if (match.Success)
+                {
+                    InvokeFoundNotify(match.Groups["matchid"].ToString(), match.Groups["name"].ToString());
+                }
+            };
+
+            _twitterStream.StartStreamMatchingAnyCondition();
+        }
+
+        #endregion
+
+        public delegate void DelegateFoundNotify(string matchId, string name);
+        private void InvokeFoundNotify(string matchId, string name)
+        {
+            Invoke(new DelegateFoundNotify(FoundNotify), matchId, name);
+        }
+
+        private void FoundNotify(string matchId, string name)
+        {
+            string displayText = $"發現{name}，ID:{matchId}";
+            Clipboard.SetText(matchId);
+            PlaySound();
+            GBF_notifyIcon.ShowBalloonTip(15000, "大食怪天線", displayText, ToolTipIcon.Info);
+            WriteLog(displayText);
+            
+        }
 
         private void WriteLog(string message)
         {
@@ -211,17 +307,17 @@ namespace GBFWikeMatchFinderWinApp
 
         ManualResetEvent _shutdownEvent = new ManualResetEvent(false);
         ManualResetEvent _pauseEvent = new ManualResetEvent(true);
-        Thread _thread;
+        Thread _threadWiki;
         public void Start()
         {
-            if (_thread == null || !_thread.IsAlive)
+            if (_threadWiki == null || !_threadWiki.IsAlive)
             {
 
-                _thread = new Thread(GOFind);
-                _thread.SetApartmentState(ApartmentState.STA);
-                _thread.IsBackground = true;
-                _thread.Start();
-                WriteLog("開始尋找 ");
+                _threadWiki = new Thread(ExecuteFinder);
+                _threadWiki.SetApartmentState(ApartmentState.STA);
+                _threadWiki.IsBackground = true;
+                _threadWiki.Start();
+                WriteLog("開始尋找");
             }
         }
         public void Pause()
@@ -230,6 +326,7 @@ namespace GBFWikeMatchFinderWinApp
              * causing threads to block.
              */
             _pauseEvent.Reset();
+            _twitterStream.PauseStream();
             WriteLog("暫停尋找 ");
         }
 
@@ -239,11 +336,12 @@ namespace GBFWikeMatchFinderWinApp
              * allowing one or more waiting threads to proceed.
              */
             _pauseEvent.Set();
+            _twitterStream.ResumeStream();
             WriteLog("繼續尋找 ");
         }
         public void Stop()
         {
-            if (_thread != null && _thread.IsAlive)
+            if (_threadWiki != null && _threadWiki.IsAlive)
             {
 
                 // Signal the shutdown event
@@ -253,8 +351,9 @@ namespace GBFWikeMatchFinderWinApp
                 _pauseEvent.Set();
 
                 // Wait for the thread to exit
-                _thread.Abort();
-                _thread.Join();
+                _threadWiki.Abort();
+                _threadWiki.Join();
+                _twitterStream.StopStream();
                 WriteLog("停止尋找 ");
             }
         }

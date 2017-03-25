@@ -35,10 +35,13 @@
             this.開始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.停止ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.離開ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CLB_List = new System.Windows.Forms.CheckedListBox();
+            this.clb_Wiki = new System.Windows.Forms.CheckedListBox();
             this.BTN_GO = new System.Windows.Forms.Button();
             this.BTN_STOP = new System.Windows.Forms.Button();
             this.TB_MB = new System.Windows.Forms.TextBox();
+            this.clb_Twitter = new System.Windows.Forms.CheckedListBox();
+            this.lblWiki = new System.Windows.Forms.Label();
+            this.lblTwitter = new System.Windows.Forms.Label();
             this.GBF_contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,17 +86,17 @@
             this.離開ToolStripMenuItem.Text = "離開";
             this.離開ToolStripMenuItem.Click += new System.EventHandler(this.離開ToolStripMenuItem_Click);
             // 
-            // CLB_List
+            // clb_Wiki
             // 
-            this.CLB_List.FormattingEnabled = true;
-            this.CLB_List.Location = new System.Drawing.Point(12, 12);
-            this.CLB_List.Name = "CLB_List";
-            this.CLB_List.Size = new System.Drawing.Size(120, 191);
-            this.CLB_List.TabIndex = 1;
+            this.clb_Wiki.FormattingEnabled = true;
+            this.clb_Wiki.Location = new System.Drawing.Point(2, 25);
+            this.clb_Wiki.Name = "clb_Wiki";
+            this.clb_Wiki.Size = new System.Drawing.Size(120, 191);
+            this.clb_Wiki.TabIndex = 1;
             // 
             // BTN_GO
             // 
-            this.BTN_GO.Location = new System.Drawing.Point(138, 12);
+            this.BTN_GO.Location = new System.Drawing.Point(285, 25);
             this.BTN_GO.Name = "BTN_GO";
             this.BTN_GO.Size = new System.Drawing.Size(75, 23);
             this.BTN_GO.TabIndex = 2;
@@ -103,7 +106,7 @@
             // 
             // BTN_STOP
             // 
-            this.BTN_STOP.Location = new System.Drawing.Point(219, 12);
+            this.BTN_STOP.Location = new System.Drawing.Point(366, 25);
             this.BTN_STOP.Name = "BTN_STOP";
             this.BTN_STOP.Size = new System.Drawing.Size(75, 23);
             this.BTN_STOP.TabIndex = 3;
@@ -113,21 +116,50 @@
             // 
             // TB_MB
             // 
-            this.TB_MB.Location = new System.Drawing.Point(138, 41);
+            this.TB_MB.Location = new System.Drawing.Point(285, 54);
             this.TB_MB.Multiline = true;
             this.TB_MB.Name = "TB_MB";
             this.TB_MB.Size = new System.Drawing.Size(207, 162);
             this.TB_MB.TabIndex = 5;
             // 
+            // clb_Twitter
+            // 
+            this.clb_Twitter.FormattingEnabled = true;
+            this.clb_Twitter.Location = new System.Drawing.Point(142, 25);
+            this.clb_Twitter.Name = "clb_Twitter";
+            this.clb_Twitter.Size = new System.Drawing.Size(120, 191);
+            this.clb_Twitter.TabIndex = 6;
+            // 
+            // lblWiki
+            // 
+            this.lblWiki.AutoSize = true;
+            this.lblWiki.Location = new System.Drawing.Point(0, 9);
+            this.lblWiki.Name = "lblWiki";
+            this.lblWiki.Size = new System.Drawing.Size(28, 12);
+            this.lblWiki.TabIndex = 7;
+            this.lblWiki.Text = "Wiki";
+            // 
+            // lblTwitter
+            // 
+            this.lblTwitter.AutoSize = true;
+            this.lblTwitter.Location = new System.Drawing.Point(140, 10);
+            this.lblTwitter.Name = "lblTwitter";
+            this.lblTwitter.Size = new System.Drawing.Size(38, 12);
+            this.lblTwitter.TabIndex = 8;
+            this.lblTwitter.Text = "Twitter";
+            // 
             // Form_GBF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(357, 217);
+            this.ClientSize = new System.Drawing.Size(498, 222);
+            this.Controls.Add(this.lblTwitter);
+            this.Controls.Add(this.lblWiki);
+            this.Controls.Add(this.clb_Twitter);
             this.Controls.Add(this.TB_MB);
             this.Controls.Add(this.BTN_STOP);
             this.Controls.Add(this.BTN_GO);
-            this.Controls.Add(this.CLB_List);
+            this.Controls.Add(this.clb_Wiki);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form_GBF";
             this.Text = "大食怪天線";
@@ -145,10 +177,13 @@
         private System.Windows.Forms.ToolStripMenuItem 開始ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 停止ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 離開ToolStripMenuItem;
-        private System.Windows.Forms.CheckedListBox CLB_List;
+        private System.Windows.Forms.CheckedListBox clb_Wiki;
         private System.Windows.Forms.Button BTN_GO;
         private System.Windows.Forms.Button BTN_STOP;
         private System.Windows.Forms.TextBox TB_MB;
+        private System.Windows.Forms.CheckedListBox clb_Twitter;
+        private System.Windows.Forms.Label lblWiki;
+        private System.Windows.Forms.Label lblTwitter;
     }
 }
 
