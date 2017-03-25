@@ -270,7 +270,7 @@ namespace GBFWikeMatchFinderWinApp
 
         private void FoundNotify(string matchId, string name)
         {
-            string displayText = $"發現{name}，ID:{matchId}";
+            string displayText = $"發現 {name}，ID: {matchId}";
             Clipboard.SetText(matchId);
             PlaySound();
             GBF_notifyIcon.ShowBalloonTip(15000, "大食怪天線", displayText, ToolTipIcon.Info);
