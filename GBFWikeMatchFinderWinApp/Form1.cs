@@ -143,11 +143,18 @@ namespace GBFWikeMatchFinderWinApp
 
         private void FoundNotify(string matchId, string name)
         {
-            string displayText = $"發現 {name}，ID: {matchId}";
-            Clipboard.SetText(matchId);
-            PlaySound();
-            GBF_notifyIcon.ShowBalloonTip(15000, "大食怪天線", displayText, ToolTipIcon.Info);
-            WriteLog(displayText);
+            try
+            {
+                string displayText = $"發現 {name}，ID: {matchId}";
+                Clipboard.SetText(matchId);
+                PlaySound();
+                GBF_notifyIcon.ShowBalloonTip(15000, "大食怪天線", displayText, ToolTipIcon.Info);
+                WriteLog(displayText);
+            }
+            catch (Exception ex)
+            {
+                WriteLog($"error:{ex.ToString()}");
+            }
         }
 
         public delegate void DelegateWriteLog(string msg);
@@ -177,7 +184,7 @@ namespace GBFWikeMatchFinderWinApp
         private void PlaySound()
         {
             SoundPlayer player = new SoundPlayer();
-            player.SoundLocation = Environment.CurrentDirectory + "\\alert.wav";
+            player.SoundLocation = Environment.CurrentDirectory + "\\alert.wav";            
             player.Play();
         }
 

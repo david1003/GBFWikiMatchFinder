@@ -55,7 +55,6 @@ namespace GBFWikeMatchFinderWinApp.Finder
                 catch (Exception ex)
                 {
                     WriteLog($"error. {ex.ToString()}");
-                    throw;
                 }
                 Thread.Sleep(3500);
             }
@@ -105,6 +104,7 @@ namespace GBFWikeMatchFinderWinApp.Finder
                                             if (matchDt.CompareTo(_lastMatchTime) > 0)
                                             {
                                                 OnBattleFound?.Invoke(matchId, item);
+                                                _lastMatchTime = matchDt;
                                             }
                                         }
                                         else
