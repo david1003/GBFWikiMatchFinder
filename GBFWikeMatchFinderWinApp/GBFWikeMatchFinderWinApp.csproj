@@ -105,6 +105,9 @@
   <ItemGroup>
     <Compile Include="EnemyName.cs" />
     <Compile Include="EnumExtensions.cs" />
+    <Compile Include="Finder\IMultiBattleFinder.cs" />
+    <Compile Include="Finder\TwitterFinder.cs" />
+    <Compile Include="Finder\WikiFinder.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,6 +115,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="ConsoleTextBoxWriter.cs" />
+    <Compile Include="MultiBattleDefine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
