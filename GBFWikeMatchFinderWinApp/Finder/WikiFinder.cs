@@ -104,7 +104,7 @@ namespace GBFWikeMatchFinderWinApp.Finder
                                         {
                                             if (matchDt.CompareTo(_lastMatchTime) > 0)
                                             {
-                                                OnBattleFound?.Invoke(match.Groups["matchid"].ToString(), match.Groups["name"].ToString());
+                                                OnBattleFound?.Invoke(matchId, item);
                                             }
                                         }
                                         else

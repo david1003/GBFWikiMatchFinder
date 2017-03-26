@@ -176,9 +176,9 @@ namespace GBFWikeMatchFinderWinApp
 
         private void PlaySound()
         {
-            SoundPlayer typewriter = new SoundPlayer();
-            typewriter.SoundLocation = Environment.CurrentDirectory + "\\alert.wav";
-            typewriter.Play();
+            SoundPlayer player = new SoundPlayer();
+            player.SoundLocation = Environment.CurrentDirectory + "\\alert.wav";
+            player.Play();
         }
 
         public void Start()
