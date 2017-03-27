@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon\icon1.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
@@ -148,8 +151,11 @@
     <Content Include="alert.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="icon\icon1.ico" />
     <Content Include="icon\icon1.png" />
+    <Content Include="icon\icon2.ico" />
     <Content Include="icon\icon2.png" />
+    <Content Include="icon\icon3.ico" />
     <Content Include="icon\icon3.jpg" />
   </ItemGroup>
   <ItemGroup>
