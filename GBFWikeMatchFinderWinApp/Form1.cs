@@ -232,6 +232,12 @@ namespace GBFWikeMatchFinderWinApp
             this.Close();
         }
 
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            Stop();
+            base.OnFormClosed(e);
+        }
+
         #endregion
     }
 }
