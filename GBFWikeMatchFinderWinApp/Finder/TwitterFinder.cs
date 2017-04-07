@@ -37,7 +37,7 @@ namespace GBFWikeMatchFinderWinApp.Finder
                 string accessTokenSecret = ConfigurationManager.AppSettings["AccessTokenSecret"];
 
                 Auth.SetUserCredentials(consumerKey, consumerSecret, accessToken, accessTokenSecret);
-                
+
                 TweetinviEvents.QueryBeforeExecute += (sender, args) =>
                 {
                     //Console.WriteLine(args.QueryURL);
@@ -46,9 +46,14 @@ namespace GBFWikeMatchFinderWinApp.Finder
                 _twitterStream = Stream.CreateFilteredStream();
 
                 //加入等級Filter
-                selectedBattles.Select(s => s.BattleLevel).Distinct().ForEach(e =>
+                //selectedBattles.Select(s => s.BattleLevel).Distinct().ForEach(e =>
+                //{
+                //    _twitterStream.AddTrack("Lv" + e);
+                //});
+                //加入名字Filter 降低通知頻率
+                selectedBattles.ForEach(e =>
                 {
-                    _twitterStream.AddTrack("Lv" + e);
+                    _twitterStream.AddTrack("Lv" + e.BattleLevel + " " + e.Name);
                 });
                 _twitterStream.AddTweetLanguageFilter(LanguageFilter.Japanese);
 
@@ -71,17 +76,27 @@ namespace GBFWikeMatchFinderWinApp.Finder
                         WriteLog("Not matched");
                     }
                 };
-
                 _twitterStream.StartStreamMatchingAnyCondition();
+
+                //var SStatus = _twitterStream.StreamState;
+                if (_twitterStream.StreamState == StreamState.Stop)
+                {
+                    WriteLog(" stopped!");
+                }
             }
             catch (TwitterException ex)
             {
-                if (null != _twitterStream)
-                {
-                    _twitterStream.StopStream();
-                }
                 WriteLog(ex.ToString());
             }
+            finally
+            {
+                if (null != _twitterStream && _twitterStream.StreamState != StreamState.Stop)
+                {
+                        _twitterStream.StopStream();
+                        WriteLog(" Auto stopped!");
+                }
+            }
+
         }
 
         //public void Pause()
@@ -93,7 +108,7 @@ namespace GBFWikeMatchFinderWinApp.Finder
         public void Stop()
         {
             _twitterStream.StopStream();
-            WriteLog(" stopped!");
+            WriteLog(" stopping!");
         }
 
         private void WriteLog(string msg)
