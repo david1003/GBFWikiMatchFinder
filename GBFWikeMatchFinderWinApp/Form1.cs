@@ -99,14 +99,14 @@ namespace GBFWikeMatchFinderWinApp
         public List<MultiBattleDefine> GetTwitterMultiBattles()
         {
             var battles = new List<MultiBattleDefine>();
-            battles.Add(new MultiBattleDefine("ミカエル", @"Lv100\s*ミカエル", 100));
-            battles.Add(new MultiBattleDefine("ガブリエル", @"Lv100\s*ガブリエル", 100));
-            battles.Add(new MultiBattleDefine("ウリエル", @"Lv100\s*ウリエル", 100));
-            battles.Add(new MultiBattleDefine("ラファエル", @"Lv100\s*ラファエル", 100));
-            battles.Add(new MultiBattleDefine("プロバハ", @"Lv100\s*プロトバハムート", 100));
-            battles.Add(new MultiBattleDefine("グランデ", @"Lv100\s*ジ・オーダー・グランデ", 100));
-            battles.Add(new MultiBattleDefine("黄龍", @"Lv100\s*黄龍", 100));
-            battles.Add(new MultiBattleDefine("黒麒麟", @"Lv100\s*黒麒麟", 100));
+            battles.Add(new MultiBattleDefine("ミカエル", @"ミカエル", 100));
+            battles.Add(new MultiBattleDefine("ガブリエル", @"ガブリエル", 100));
+            battles.Add(new MultiBattleDefine("ウリエル", @"ウリエル", 100));
+            battles.Add(new MultiBattleDefine("ラファエル", @"ラファエル", 100));
+            battles.Add(new MultiBattleDefine("プロバハ", @"プロトバハムート", 100));
+            battles.Add(new MultiBattleDefine("グランデ", @"ジ・オーダー・グランデ", 100));
+            battles.Add(new MultiBattleDefine("黄龍", @"黄龍", 100));
+            battles.Add(new MultiBattleDefine("黒麒麟", @"黒麒麟", 100));
 
             return battles;
         }

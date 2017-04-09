@@ -19,7 +19,7 @@ namespace GBFWikeMatchFinderWinApp.Finder
 
         public event Action<string, string> OnBattleFound;
         public event Action<string> OnWriteLog;
-
+        
         public void Execute(List<MultiBattleDefine> selectedBattles)
         {
             WriteLog(" start!");
@@ -46,22 +46,24 @@ namespace GBFWikeMatchFinderWinApp.Finder
                 _twitterStream = Stream.CreateFilteredStream();
 
                 //加入等級Filter
-                //selectedBattles.Select(s => s.BattleLevel).Distinct().ForEach(e =>
-                //{
-                //    _twitterStream.AddTrack("Lv" + e);
-                //});
-                //加入名字Filter 降低通知頻率
-                selectedBattles.ForEach(e =>
+                selectedBattles.Select(s => s.BattleLevel).Distinct().ForEach(e =>
                 {
-                    _twitterStream.AddTrack("Lv" + e.BattleLevel + " " + e.Name);
+                    _twitterStream.AddTrack("Lv" + e);
                 });
+                //加入名字Filter 降低通知頻率(中間名字有符號的會捉不到，放棄)
+                //selectedBattles.ForEach(e =>
+                //{
+                //    _twitterStream.AddTrack("Lv" + e.BattleLevel + " " + e.Value);
+                //});
                 _twitterStream.AddTweetLanguageFilter(LanguageFilter.Japanese);
 
 
-                //組合name的pattern
-                string namePatternString = $"(?<name>{string.Join("|", selectedBattles.Select(s => s.Value))})";
-
+                //組合name的pattern 
+                string namePatternString = $"(?<name>{string.Join("|", selectedBattles.Select(s => $"Lv{s.BattleLevel}\\s*{s.Value}"))})";
                 Regex pattern = new Regex(@"参戦ID：(?<matchid>([a-zA-Z0-9]){8})\s*" + namePatternString);
+
+                //取得ID和名字
+                //Regex pattern = new Regex(@"参戦ID：(?<matchid>([a-zA-Z0-9]){8})\s*Lv\d{2,3}\s(?<name>\w*)");
 
                 _twitterStream.MatchingTweetReceived += (sender, args) =>
                 {
@@ -71,14 +73,15 @@ namespace GBFWikeMatchFinderWinApp.Finder
                     {
                         OnBattleFound?.Invoke(match.Groups["matchid"].ToString(), match.Groups["name"].ToString());
                     }
-                    else
-                    {
-                        WriteLog("Not matched");
-                    }
+                    //else
+                    //{
+                    //    WriteLog("Not matched");
+                    //}
                 };
                 _twitterStream.StartStreamMatchingAnyCondition();
 
                 //var SStatus = _twitterStream.StreamState;
+                
                 if (_twitterStream.StreamState == StreamState.Stop)
                 {
                     WriteLog(" stopped!");
