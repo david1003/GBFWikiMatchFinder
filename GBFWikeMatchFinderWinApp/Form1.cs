@@ -114,9 +114,9 @@ namespace GBFWikeMatchFinderWinApp
         private List<MultiBattleDefine> GetWikiFindListDs()
         {
             string fourUrl =
-                "http://gbf-wiki.com/index.php?%BB%CD%C2%E7%C5%B7%BB%CA%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB_%B5%DF%B1%E7%CA%E7%BD%B8%C8%C4";
+                "http://gbf-wiki.com/index.php?%BB%CD%C2%E7%C5%B7%BB%CA%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB%CA%E7%BD%B8%C8%C4%2F%B5%DF%B1%E7ID%CA%E7%BD%B8";
             string otherUrl =
-                "http://gbf-wiki.com/index.php?%C4%CC%BE%EF%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB_%B5%DF%B1%E7%CA%E7%BD%B8%C8%C4";
+                "http://gbf-wiki.com/index.php?%C4%CC%BE%EF%A5%DE%A5%EB%A5%C1%A5%D0%A5%C8%A5%EB%CA%E7%BD%B8%C8%C4%2F%B5%DF%B1%E7ID%CA%E7%BD%B8";
 
             var battles = new List<MultiBattleDefine>();
 
