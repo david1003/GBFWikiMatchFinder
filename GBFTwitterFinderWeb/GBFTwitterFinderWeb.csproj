@@ -157,39 +157,39 @@
     </Reference>
     <Reference Include="Tweetinvi, Version=1.2.0.1, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Tweetinvi.dll</HintPath>
+      <HintPath>..\GBFFinderLibrary\Dlls\Tweetinvi.dll</HintPath>
     </Reference>
     <Reference Include="Tweetinvi.Controllers, Version=1.2.0.1, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Tweetinvi.Controllers.dll</HintPath>
+      <HintPath>..\GBFFinderLibrary\Dlls\Tweetinvi.Controllers.dll</HintPath>
     </Reference>
     <Reference Include="Tweetinvi.Core, Version=1.2.0.1, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Tweetinvi.Core.dll</HintPath>
+      <HintPath>..\GBFFinderLibrary\Dlls\Tweetinvi.Core.dll</HintPath>
     </Reference>
     <Reference Include="Tweetinvi.Credentials, Version=1.2.0.1, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Tweetinvi.Credentials.dll</HintPath>
+      <HintPath>..\GBFFinderLibrary\Dlls\Tweetinvi.Credentials.dll</HintPath>
     </Reference>
     <Reference Include="Tweetinvi.Factories, Version=1.2.0.1, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Tweetinvi.Factories.dll</HintPath>
+      <HintPath>..\GBFFinderLibrary\Dlls\Tweetinvi.Factories.dll</HintPath>
     </Reference>
     <Reference Include="Tweetinvi.Logic, Version=1.2.0.1, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Tweetinvi.Logic.dll</HintPath>
+      <HintPath>..\GBFFinderLibrary\Dlls\Tweetinvi.Logic.dll</HintPath>
     </Reference>
     <Reference Include="Tweetinvi.Security, Version=1.2.0.1, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Tweetinvi.Security.dll</HintPath>
+      <HintPath>..\GBFFinderLibrary\Dlls\Tweetinvi.Security.dll</HintPath>
     </Reference>
     <Reference Include="Tweetinvi.Streams, Version=1.2.0.1, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Tweetinvi.Streams.dll</HintPath>
+      <HintPath>..\GBFFinderLibrary\Dlls\Tweetinvi.Streams.dll</HintPath>
     </Reference>
     <Reference Include="Tweetinvi.WebLogic, Version=1.2.0.1, Culture=neutral, PublicKeyToken=7247f14397bf67b9, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\Tweetinvi.WebLogic.dll</HintPath>
+      <HintPath>..\GBFFinderLibrary\Dlls\Tweetinvi.WebLogic.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
