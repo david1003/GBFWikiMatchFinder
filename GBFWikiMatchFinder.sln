@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBFWikiMatchFinder", "GBFWikiMatchFinder\GBFWikiMatchFinder.csproj", "{5EF19657-61FD-499B-91D8-F0A46FD49F56}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBFWikeMatchFinderWinApp", "GBFWikeMatchFinderWinApp\GBFWikeMatchFinderWinApp.csproj", "{AB36EEBB-9806-4C5D-ACD9-8C4CC43D2B7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBFTwitterFinderWeb", "GBFTwitterFinderWeb\GBFTwitterFinderWeb.csproj", "{5C381E3F-F041-41B0-B3B5-E93168D060A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GBFFinderLibrary", "GBFFinderLibrary\GBFFinderLibrary.csproj", "{605B485E-F83E-40C5-A70A-A0498E9F51B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5EF19657-61FD-499B-91D8-F0A46FD49F56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5EF19657-61FD-499B-91D8-F0A46FD49F56}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5EF19657-61FD-499B-91D8-F0A46FD49F56}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5EF19657-61FD-499B-91D8-F0A46FD49F56}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AB36EEBB-9806-4C5D-ACD9-8C4CC43D2B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AB36EEBB-9806-4C5D-ACD9-8C4CC43D2B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB36EEBB-9806-4C5D-ACD9-8C4CC43D2B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB36EEBB-9806-4C5D-ACD9-8C4CC43D2B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C381E3F-F041-41B0-B3B5-E93168D060A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C381E3F-F041-41B0-B3B5-E93168D060A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C381E3F-F041-41B0-B3B5-E93168D060A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C381E3F-F041-41B0-B3B5-E93168D060A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{605B485E-F83E-40C5-A70A-A0498E9F51B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{605B485E-F83E-40C5-A70A-A0498E9F51B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{605B485E-F83E-40C5-A70A-A0498E9F51B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{605B485E-F83E-40C5-A70A-A0498E9F51B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

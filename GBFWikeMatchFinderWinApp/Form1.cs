@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Media;
 using System.Net;
 using System.IO;
+using GBFFinderLibrary;
 using GBFWikeMatchFinderWinApp.Finder;
 using Tweetinvi;
 using Tweetinvi.Models;
@@ -107,6 +108,8 @@ namespace GBFWikeMatchFinderWinApp
             battles.Add(new MultiBattleDefine("グランデ", @"ジ・オーダー・グランデ", 100));
             battles.Add(new MultiBattleDefine("黄龍", @"黄龍", 100));
             battles.Add(new MultiBattleDefine("黒麒麟", @"黒麒麟", 100));
+            battles.Add(new MultiBattleDefine("セレスト", @"セレスト", 75));
+            battles.Add(new MultiBattleDefine("シュヴァリエ", @"シュヴァリエ", 75));
 
             return battles;
         }
@@ -136,7 +139,7 @@ namespace GBFWikeMatchFinderWinApp
         #region Delegates
 
         public delegate void DelegateFoundNotify(string matchId, string name);
-        private void InvokeFoundNotify(string matchId, string name)
+        private void InvokeFoundNotify(string matchId, string name, string fullText)
         {
             Invoke(new DelegateFoundNotify(FoundNotify), matchId, name);
         }

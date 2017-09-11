@@ -1,0 +1,241 @@
+﻿@model List<GBFFinderLibrary.MultiBattleDefine>                                     
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=20161015">
+    <link rel="icon" type="image/png" href="/icons/favicon-32x32.png?v=20161015" sizes="32x32">
+    <link rel="icon" type="image/png" href="/icons/favicon-16x16.png?v=20161015" sizes="16x16">
+    <link rel="manifest" href="/icons/manifest.json?v=20161015">
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg?v=20161015" color="#5bbad5">
+    <link rel="shortcut icon" href="/icons/favicon.ico?v=20161015">
+    <meta name="msapplication-config" content="/icons/browserconfig.xml?v=20161015">
+    <meta name="theme-color" content="#ffffff">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="~/css/material.indigo-pink.css" rel="stylesheet" />
+    <link href="/css/base.css" rel="stylesheet" />
+    <link href="/css/dark.css" rel="stylesheet" />
+
+
+    <div class="gbfrf-container">
+        <div class="gbfrf-loading-bar mdl-progress mdl-js-progress mdl-progress__indeterminate is-hidden" data-upgraded=",MaterialProgress"><div class="progressbar bar bar1" style="width: 0%;"></div><div class="bufferbar bar bar2" style="width: 100%;"></div><div class="auxbar bar bar3" style="width: 0%;"></div></div><dialog class="mdl-dialog gbfrf-dialog">
+            <div class="mdl-layout__container">
+                <div class="gbfrf-main-dialog gbfrf-dialog__container mdl-layout mdl-js-layout mdl-layout--fixed-header mdl-layout--fixed-tabs is-upgraded" data-upgraded=",MaterialLayout">
+                    <header class="mdl-layout__header is-casting-shadow">
+                        <div class="mdl-layout__header-row gbfrf-column__header-row">
+                            <div class="gbfrf-dialog__tab-bar-item mdl-layout__tab is-active">Follow</div><div class="gbfrf-dialog__tab-bar-item mdl-layout__tab">Settings</div>
+                            <div class="mdl-layout-spacer"></div>
+                            <div class="mdl-button mdl-js-button mdl-button--icon material-icons js-close-dialog" data-upgraded=",MaterialButton">
+                                <i class="material-icons">clear</i>
+                            </div>
+                        </div>
+                    </header>
+                    <section class="gbfrf-dialog__content mdl-layout__tab-panel is-active" id="gbfrf-dialog__follow">
+                        <ul class="mdl-list" style="padding: 0px; margin: 0px;">
+                            @foreach (var item in Model)
+                            {
+                            var bossName = $"Lv {item.Level} {item.Name}";
+
+                            <li data-bossname="@bossName" class="gbfrf-js-bossSelect gbfrf-follow__boss-box mdl-list__item mdl-list__item--two-line">
+                                <span class="mdl-list__item-primary-content">
+                                    <span>@bossName</span>
+                                </span>
+                                <div class="mdl-layout-spacer"></div>
+
+                            </li>
+                            }
+                        </ul>
+                    </section>
+                    <hr style="margin: 0px;">
+                    <div class="mdl-dialog__actions">
+                        <button class="mdl-button gbfrf-dialog__button" type="button">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </dialog><dialog class="mdl-dialog gbfrf-dialog">
+            <div class="mdl-layout__container">
+                <div class="gbfrf-sound-selection-dialog gbfrf-dialog__container mdl-layout mdl-js-layout mdl-layout--fixed-header is-upgraded" data-upgraded=",MaterialLayout">
+                    <header class="mdl-layout__header is-casting-shadow">
+                        <div class="mdl-layout__header-row gbfrf-column__header-row">
+                            <span class="mdl-layout-title">Notification Sound</span>
+                            <div class="mdl-layout-spacer"></div>
+                            <div class="mdl-button mdl-js-button mdl-button--icon material-icons js-close-dialog" data-upgraded=",MaterialButton">
+                                <i class="material-icons">clear</i>
+                            </div>
+                        </div>
+                    </header>
+                    <section class="gbfrf-dialog__content">
+                        <!-- // TODO: Put this in a method -->
+                        <div class="gbfrf-settings__content">
+                            <ul class="mdl-list" style="padding: 0px; margin: 0px;">
+                                <li data-soundid="-1" class="gbfrf-js-soundSelect gbfrf--sound-select__item gbfrf-settings__item mdl-list__item">
+                                    <label class="mdl-list__item-primary-content mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded" for="gbfrf-sound-option---1" data-upgraded=",MaterialRadio,MaterialRipple">
+                                        <input name="gbfrf-sound-option" type="radio" value="-1" id="gbfrf-sound-option---1" class="mdl-radio__button">
+                                        <span class="mdl-radio__label">None</span>
+                                        <span class="mdl-radio__outer-circle"></span><span class="mdl-radio__inner-circle"></span><span class="mdl-radio__ripple-container mdl-js-ripple-effect mdl-ripple--center" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span>
+                                    </label>
+                                </li>
+                                <li data-soundid="1" class="gbfrf-js-soundSelect gbfrf--sound-select__item gbfrf-settings__item mdl-list__item">
+                                    <label class="mdl-list__item-primary-content mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded" for="gbfrf-sound-option--1" data-upgraded=",MaterialRadio,MaterialRipple">
+                                        <input name="gbfrf-sound-option" type="radio" value="1" id="gbfrf-sound-option--1" class="mdl-radio__button">
+                                        <span class="mdl-radio__label">oh-finally.ogg</span>
+                                        <span class="mdl-radio__outer-circle"></span><span class="mdl-radio__inner-circle"></span><span class="mdl-radio__ripple-container mdl-js-ripple-effect mdl-ripple--center" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span>
+                                    </label>
+                                </li>
+                                <li data-soundid="2" class="gbfrf-js-soundSelect gbfrf--sound-select__item gbfrf-settings__item mdl-list__item">
+                                    <label class="mdl-list__item-primary-content mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded" for="gbfrf-sound-option--2" data-upgraded=",MaterialRadio,MaterialRipple">
+                                        <input name="gbfrf-sound-option" type="radio" value="2" id="gbfrf-sound-option--2" class="mdl-radio__button">
+                                        <span class="mdl-radio__label">oringz-w425.ogg</span>
+                                        <span class="mdl-radio__outer-circle"></span><span class="mdl-radio__inner-circle"></span><span class="mdl-radio__ripple-container mdl-js-ripple-effect mdl-ripple--center" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span>
+                                    </label>
+                                </li>
+                                <li data-soundid="3" class="gbfrf-js-soundSelect gbfrf--sound-select__item gbfrf-settings__item mdl-list__item">
+                                    <label class="mdl-list__item-primary-content mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded" for="gbfrf-sound-option--3" data-upgraded=",MaterialRadio,MaterialRipple">
+                                        <input name="gbfrf-sound-option" type="radio" value="3" id="gbfrf-sound-option--3" class="mdl-radio__button">
+                                        <span class="mdl-radio__label">pedantic.ogg</span>
+                                        <span class="mdl-radio__outer-circle"></span><span class="mdl-radio__inner-circle"></span><span class="mdl-radio__ripple-container mdl-js-ripple-effect mdl-ripple--center" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span>
+                                    </label>
+                                </li>
+                                <li data-soundid="4" class="gbfrf-js-soundSelect gbfrf--sound-select__item gbfrf-settings__item mdl-list__item">
+                                    <label class="mdl-list__item-primary-content mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded" for="gbfrf-sound-option--4" data-upgraded=",MaterialRadio,MaterialRipple">
+                                        <input name="gbfrf-sound-option" type="radio" value="4" id="gbfrf-sound-option--4" class="mdl-radio__button">
+                                        <span class="mdl-radio__label">suppressed.ogg</span>
+                                        <span class="mdl-radio__outer-circle"></span><span class="mdl-radio__inner-circle"></span><span class="mdl-radio__ripple-container mdl-js-ripple-effect mdl-ripple--center" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span>
+                                    </label>
+                                </li>
+                                <li data-soundid="5" class="gbfrf-js-soundSelect gbfrf--sound-select__item gbfrf-settings__item mdl-list__item">
+                                    <label class="mdl-list__item-primary-content mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded" for="gbfrf-sound-option--5" data-upgraded=",MaterialRadio,MaterialRipple">
+                                        <input name="gbfrf-sound-option" type="radio" value="5" id="gbfrf-sound-option--5" class="mdl-radio__button">
+                                        <span class="mdl-radio__label">system.ogg</span>
+                                        <span class="mdl-radio__outer-circle"></span><span class="mdl-radio__inner-circle"></span><span class="mdl-radio__ripple-container mdl-js-ripple-effect mdl-ripple--center" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span>
+                                    </label>
+                                </li>
+                                <li data-soundid="6" class="gbfrf-js-soundSelect gbfrf--sound-select__item gbfrf-settings__item mdl-list__item">
+                                    <label class="mdl-list__item-primary-content mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded" for="gbfrf-sound-option--6" data-upgraded=",MaterialRadio,MaterialRipple">
+                                        <input name="gbfrf-sound-option" type="radio" value="6" id="gbfrf-sound-option--6" class="mdl-radio__button">
+                                        <span class="mdl-radio__label">tweet.ogg</span>
+                                        <span class="mdl-radio__outer-circle"></span><span class="mdl-radio__inner-circle"></span><span class="mdl-radio__ripple-container mdl-js-ripple-effect mdl-ripple--center" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span>
+                                    </label>
+                                </li>
+                                <li data-soundid="7" class="gbfrf-js-soundSelect gbfrf--sound-select__item gbfrf-settings__item mdl-list__item">
+                                    <label class="mdl-list__item-primary-content mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded" for="gbfrf-sound-option--7" data-upgraded=",MaterialRadio,MaterialRipple">
+                                        <input name="gbfrf-sound-option" type="radio" value="7" id="gbfrf-sound-option--7" class="mdl-radio__button">
+                                        <span class="mdl-radio__label">you-wouldnt-believe.ogg</span>
+                                        <span class="mdl-radio__outer-circle"></span><span class="mdl-radio__inner-circle"></span><span class="mdl-radio__ripple-container mdl-js-ripple-effect mdl-ripple--center" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span>
+                                    </label>
+                                </li>
+                                <li data-soundid="8" class="gbfrf-js-soundSelect gbfrf--sound-select__item gbfrf-settings__item mdl-list__item">
+                                    <label class="mdl-list__item-primary-content mdl-radio mdl-js-radio mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events is-upgraded" for="gbfrf-sound-option--8" data-upgraded=",MaterialRadio,MaterialRipple">
+                                        <input name="gbfrf-sound-option" type="radio" value="8" id="gbfrf-sound-option--8" class="mdl-radio__button">
+                                        <span class="mdl-radio__label">youve-been-informed.ogg</span>
+                                        <span class="mdl-radio__outer-circle"></span><span class="mdl-radio__inner-circle"></span><span class="mdl-radio__ripple-container mdl-js-ripple-effect mdl-ripple--center" data-upgraded=",MaterialRipple"><span class="mdl-ripple"></span></span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                    <hr style="margin: 0px;">
+                    <div class="mdl-dialog__actions">
+                        <button class="mdl-button mdl-button--primary gbfrf-dialog__button" type="button">Save</button>
+                        <button class="mdl-button gbfrf-dialog__button" type="button">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+        <div class="gbfrf-main-content">
+            <style>
+                .gbfrf-column {
+                    width: 350px;
+                }
+
+                .gbfrf-tweet__text {
+                    font-size: 1em;
+                    margin-right: 0px;
+                }
+            </style>
+            <div class="mdl-js-snackbar mdl-snackbar" data-upgraded=",MaterialSnackbar">
+                <div class="mdl-snackbar__text"></div>
+                <button type="button" class="mdl-snackbar__action" aria-hidden="true"></button>
+            </div>
+            <div class="gbfrf-settings-fab__container">
+                <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--primary" data-upgraded=",MaterialButton,MaterialRipple">
+                    <i class="material-icons">
+                        add
+                    </i>
+                    <span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating" style="width: 160.392px; height: 160.392px; transform: translate(-50%, -50%) translate(12px, 22px);"></span></span>
+                </button>
+            </div>
+            <div class="gbfrf-columns">
+                <div class="gbfrf-column mdl-shadow--2dp">
+                    <div class="mdl-layout mdl-layout--fixed-header">
+                        <header class="mdl-layout__header">
+                            <div class="mdl-layout__header-row gbfrf-column__header-row">
+                                <div class="mdl-layout-title gbfrf-column__header">
+                                    <div class="gbfrf-column__header-name">Lv100 ガルーダ</div>
+                                    <div class="gbfrf-column__header-translatedName">Lvl 100 Garuda</div>
+                                </div>
+                                <div class="mdl-layout-spacer"></div>
+                                <button id="menu_Lv100_ガルーダ" class="mdl-button mdl-js-button mdl-button--icon" data-upgraded=",MaterialButton">
+                                    <i class="material-icons">more_vert</i>
+                                </button>
+                                <div class="mdl-menu__container is-upgraded">
+                                    <div class="mdl-menu__outline mdl-menu--bottom-right"></div><ul for="menu_Lv100_ガルーダ" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-js-ripple-effect--ignore-events" data-upgraded=",MaterialMenu,MaterialRipple">
+
+                                        <li class="mdl-menu__item mdl-js-ripple-effect" tabindex="-1" data-upgraded=",MaterialRipple">
+                                            <i class="gbfrf-column__header-row-icon material-icons">clear_all</i>
+                                            <span>Clear</span>
+                                            <span class="mdl-menu__item-ripple-container"><span class="mdl-ripple"></span></span>
+                                        </li>
+                                        <li class="mdl-menu__item mdl-js-ripple-effect" tabindex="-1" data-upgraded=",MaterialRipple">
+                                            <i class="gbfrf-column__header-row-icon material-icons">delete</i>
+                                            <span>Unfollow</span>
+                                            <span class="mdl-menu__item-ripple-container"><span class="mdl-ripple"></span></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </header>
+                        <div class="gbfrf-column__notification-banner mdl-shadow--4dp">
+                            <div class="gbfrf-column__notification-banner-container">
+                                <div class="gbfrf-column__notification-banner-item is-hidden">
+                                    <i class="gbfrf-column__notification-banner-icon material-icons">volume_up</i>
+                                    Sound on
+                                </div>
+                                <div class="gbfrf-column__notification-banner-item is-hidden">
+                                    <i class="gbfrf-column__notification-banner-icon material-icons">notifications</i>
+                                    Notifications on
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mdl-layout__content">
+                            <ul class="mdl-list gbfrf-tweets">
+                                <li data-raidid="59627886" class="gbfrf-tweet gbfrf-js-tweet mdl-list__item">
+                                    <div class="mdl-list__item-primary-content">
+                                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" class="gbfrf-tweet__avatar is-hidden">
+                                        <div class="gbfrf-tweet__content">
+                                            <div>
+                                                <span class="gbfrf-tweet__username">that_dayo</span>
+
+                                                <span class="gbfrf-tweet__timestamp">
+                                                    2m
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="gbfrf-tweet__raid-id">
+                                        59627886
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+
+    <script type="text/javascript" src="~/JS/Index.js"></script>

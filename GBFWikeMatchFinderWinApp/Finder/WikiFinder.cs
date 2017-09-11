@@ -6,12 +6,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using GBFFinderLibrary;
 
 namespace GBFWikeMatchFinderWinApp.Finder
 {
     public class WikiFinder : IMultiBattleFinder
     {
-        public event Action<string, string> OnBattleFound;
+        public event Action<string, string, string> OnBattleFound;
         public event Action<string> OnWriteLog;
 
         private Thread _thread;
@@ -103,7 +104,7 @@ namespace GBFWikeMatchFinderWinApp.Finder
                                         {
                                             if (matchDt.CompareTo(_lastMatchTime) > 0)
                                             {
-                                                OnBattleFound?.Invoke(matchId, item);
+                                                OnBattleFound?.Invoke(matchId, item, string.Empty);
                                                 _lastMatchTime = matchDt;
                                             }
                                         }

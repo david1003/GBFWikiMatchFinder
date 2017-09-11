@@ -1,0 +1,99 @@
+.gbfrf-theme--dark
+.gbfrf-main-content {
+  background: #222426;
+}
+
+.gbfrf-theme--dark
+.gbfrf-settings__item
+.mdl-slider__background-upper {
+  background: #444;
+}
+
+.gbfrf-theme--dark
+.gbfrf-settings__item
+.mdl-slider.is-lowest-value::-webkit-slider-thumb {
+  background: #bbb;
+}
+
+.gbfrf-theme--dark
+.gbfrf-settings__item
+.mdl-slider.is-lowest-value::-moz-range-thumb {
+  background: #bbb;
+}
+
+.gbfrf-theme--dark
+.gbfrf-column__notification-banner {
+  background-color: #3c444a;
+  color: #fff;
+}
+
+.gbfrf-theme--dark
+.gbfrf-dialog {
+  background: #222426;
+}
+
+.gbfrf-theme--dark
+.gbfrf-follow__boss-box {
+  color: #fff;
+  background-color: #222426;
+}
+
+.gbfrf-theme--dark
+.gbfrf-tweet {
+  color: #fff;
+}
+
+.gbfrf-theme--dark
+.gbfrf-tweet:hover {
+  background-color: #495258;
+}
+
+.gbfrf-theme--dark
+.gbfrf-settings__item {
+  color: #fff;
+}
+
+.gbfrf-theme--dark
+.gbfrf-dialog__button {
+  color: #fff;
+}
+
+.gbfrf-theme--dark
+.mdl-radio__outer-circle {
+  border-color: hsla(0, 0%, 100%, .5);
+}
+
+.gbfrf-theme--dark
+.mdl-switch__track {
+  background: hsla(0, 0%, 100%, .25);
+}
+
+.gbfrf-theme--dark
+.gbfrf-tweet__text {
+  background: #51555a;
+}
+
+
+.gbfrf-theme--dark
+.gbfrf-tweet__text::after {
+  border-color: #51555a transparent transparent transparent;
+}
+
+/**
+ * Scrollbar
+ */
+.gbfrf-theme--dark
+::-webkit-scrollbar-thumb:hover {
+  background-color: #8899a6;
+}
+
+.gbfrf-theme--dark
+::-webkit-scrollbar-thumb {
+  background-color: #666;
+}
+
+.gbfrf-theme--dark
+::-webkit-scrollbar-track {
+  border-left: 1px solid #292F33;
+}
+

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using GBFFinderLibrary;
@@ -12,7 +11,7 @@ using Tweetinvi.Exceptions;
 using Tweetinvi.Models;
 using Tweetinvi.Streaming;
 
-namespace GBFWikeMatchFinderWinApp.Finder
+namespace GBFTwitterFinderWeb.Finder
 {
     public class TwitterFinder : IMultiBattleFinder
     {
@@ -20,7 +19,7 @@ namespace GBFWikeMatchFinderWinApp.Finder
 
         public event Action<string, string, string> OnBattleFound;
         public event Action<string> OnWriteLog;
-        
+
         public void Execute(List<MultiBattleDefine> selectedBattles)
         {
             WriteLog(" start!");
@@ -29,9 +28,10 @@ namespace GBFWikeMatchFinderWinApp.Finder
 
         private void ExecuteTwitterFinder(List<MultiBattleDefine> selectedBattles)
         {
-            ExceptionHandler.SwallowWebExceptions = false;
             try
             {
+                ExceptionHandler.SwallowWebExceptions = false;
+
                 string consumerKey = ConfigurationManager.AppSettings["ConsumerKey"];
                 string consumerSecret = ConfigurationManager.AppSettings["ConsumerSecret"];
                 string accessToken = ConfigurationManager.AppSettings["AccessToken"];
@@ -51,44 +51,34 @@ namespace GBFWikeMatchFinderWinApp.Finder
                 {
                     _twitterStream.AddTrack("Lv" + e);
                 });
+                _twitterStream.AddTweetLanguageFilter(LanguageFilter.Japanese);
+
                 //加入名字Filter 降低通知頻率(中間名字有符號的會捉不到，放棄)
                 //selectedBattles.ForEach(e =>
                 //{
-                //    _twitterStream.AddTrack("Lv" + e.BattleLevel + " " + e.Value);
+                //    _twitterStream.AddTrack("Lv" + e.Level + " " + e.Value);
                 //});
-                _twitterStream.AddTweetLanguageFilter(LanguageFilter.Japanese);
-
 
                 //組合name的pattern 
-                string namePatternString = $"(?<name>{string.Join("|", selectedBattles.Select(s => $"Lv{s.Level}\\s*{s.Value}"))})";
-                Regex pattern = new Regex(@"参戦ID：(?<matchid>([a-zA-Z0-9]){8})\s*" + namePatternString);
-
-                //取得ID和名字
-                //Regex pattern = new Regex(@"参戦ID：(?<matchid>([a-zA-Z0-9]){8})\s*Lv\d{2,3}\s(?<name>\w*)");
+                //string namePatternString = $"(?<name>{string.Join("|", selectedBattles.Select(s => $"Lv{s.Level}\\s*{s.Value}"))})";
+                //Regex pattern = new Regex(@"参戦ID：(?<matchid>([a-zA-Z0-9]){8})\s*" + namePatternString);
+                
 
                 _twitterStream.MatchingTweetReceived += (sender, args) =>
                 {
                     var tweet = args.Tweet;
-                    var match = pattern.Match(tweet.FullText);
-                    if (match.Success)
-                    {
-                        OnBattleFound?.Invoke(match.Groups["matchid"].ToString(), match.Groups["name"].ToString(), string.Empty);
-                    }
-                    //else
-                    //{
-                    //    WriteLog("Not matched");
-                    //}
+                    OnBattleFound?.Invoke(string.Empty, string.Empty, tweet.FullText);
                 };
                 _twitterStream.StartStreamMatchingAnyCondition();
 
                 //var SStatus = _twitterStream.StreamState;
-                
+
                 if (_twitterStream.StreamState == StreamState.Stop)
                 {
                     WriteLog(" stopped!");
                 }
             }
-            catch (TwitterException ex)
+            catch (Exception ex)
             {
                 WriteLog(ex.ToString());
             }
@@ -96,8 +86,8 @@ namespace GBFWikeMatchFinderWinApp.Finder
             {
                 if (null != _twitterStream && _twitterStream.StreamState != StreamState.Stop)
                 {
-                        _twitterStream.StopStream();
-                        WriteLog(" Auto stopped!");
+                    _twitterStream.StopStream();
+                    WriteLog(" Auto stopped!");
                 }
             }
 
