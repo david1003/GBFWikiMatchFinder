@@ -21,12 +21,12 @@ namespace GBFTwitterFinderWeb
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            _twitterFinder = _twitterFinder ?? new TwitterFinder();
-            _twitterFinder.OnBattleFound += (name, id, fullText) =>
-            {
-                TwitterHub.SendBattleInfo(fullText);
-            };
-            _twitterFinder.Execute(GlobalStorage.BossDatas);
+            //_twitterFinder = _twitterFinder ?? new TwitterFinder();
+            //_twitterFinder.OnBattleFound += (name, id, fullText) =>
+            //{
+            //    TwitterHub.SendBattleInfo(fullText);
+            //};
+            //_twitterFinder.Execute(GlobalStorage.BossDatas);
         }
 
         protected void Application_End()

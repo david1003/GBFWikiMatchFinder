@@ -7,6 +7,7 @@ using Microsoft.AspNet.SignalR;
 
 namespace GBFTwitterFinderWeb.Hubs
 {
+
     public class TwitterHub : Hub
     {
         public void Send(string message)
